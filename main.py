@@ -6,6 +6,7 @@ import pandas as pd
 CLIENT_SECRET_FILE = 'your json file name'
 API_NAME = 'sheets'
 API_VERSION = 'v4'
+# you can find SCOPES that API supported at: https://developers.google.com/sheets/api/scopes
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 
 service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
