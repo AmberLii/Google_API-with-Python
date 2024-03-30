@@ -13,24 +13,28 @@ service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
 # https://docs.google.com/spreadsheets/d/XXXX/edit#gid=0
 spreadsheet_id = 'XXXX'
 
-# get
+# get method
 response = service.spreadsheets().values().get(
     spreadsheetId=spreadsheet_id,
     majorDimension='ROWS',
-    range='hum1'
+    # if range has only sheet_name, then it will read all cells that are not None
+    range='sheet_name'
+    # range='sheet name!A1:B5'
 ).execute()
 
+# read the first row as columns
 columns = response['values'][0]
+# read the rest rows as data
 data = response['values'][1:]
 df = pd.DataFrame(data, columns=columns)
 print(df)
 
 
-# batchGet
+# batchGet Method(read multiple tables at one time)
 valueRanges_body = [
-    'hum1!A1:E1000',
-    'lig1!A1:E1000',
-    'motion1!A1:E1000',
+    'sheet_name1!A1:E1000',
+    'sheet_name2!A1:E1000',
+    'sheet_name3!A1:E1000',
 ]
 response = service.spreadsheets().values().batchGet(
     spreadsheetId=spreadsheet_id,
